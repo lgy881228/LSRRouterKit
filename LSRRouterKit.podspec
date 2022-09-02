@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
 
 
   spec.name         = "LSRRouterKit"
-  spec.version      = "1.0"
+  spec.version      = "1.1"
   spec.summary      = "路由跳转，页面间的解耦"
 
   # This description is used to generate tags and improve search results.
@@ -19,6 +19,7 @@ Pod::Spec.new do |spec|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   spec.description  = <<-DESC
+    路由跳转，页面间的解耦
                    DESC
 
   spec.homepage     = "https://github.com/lgy881228/LSRRouterKit"
