@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
 
 
   spec.name         = "LSRRouterKit"
-  spec.version      = "1.2"
+  spec.version      = "1.3"
   spec.summary      = "路由跳转，页面间的解耦"
 
   # This description is used to generate tags and improve search results.

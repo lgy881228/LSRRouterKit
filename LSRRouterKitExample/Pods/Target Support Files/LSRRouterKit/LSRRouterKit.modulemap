@@ -1,0 +1,6 @@
+framework module LSRRouterKit {
+  umbrella header "LSRRouterKit-umbrella.h"
+
+  export *
+  module * { export * }
+}
