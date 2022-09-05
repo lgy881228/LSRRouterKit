@@ -53,8 +53,8 @@ Pod::Spec.new do |spec|
   #
 
     # spec.resource_bundles = {
-     'LSRRouter' => ['LSRRouter/Assets/*']
-   }
+   #  'LSRRouter' => ['LSRRouter/Assets/*']
+   #}
 
   # spec.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
