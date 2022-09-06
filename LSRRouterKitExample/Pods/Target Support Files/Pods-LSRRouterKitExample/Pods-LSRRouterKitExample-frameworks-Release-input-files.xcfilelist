@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-LSRRouterKitExample/Pods-LSRRouterKitExample-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/LSRRouterKit/LSRRouterKit.framework
+${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework

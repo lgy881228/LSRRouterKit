@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong, readonly) NSURL *url;
 @property (nonatomic, strong, readonly) NSDictionary *params;
-@property (nonatomic, copy, readonly) MARouterHandler customHandler;
+@property (nonatomic, copy, readonly) LSRRouterHandler customHandler;
 
 
 /**
@@ -31,7 +31,7 @@
 + (instancetype)configWithTarget:(NSString *)target
                           action:(NSString *)action
                           params:(NSDictionary *)params
-                   customHandler:(MARouterHandler)customHandler;
+                   customHandler:(LSRRouterHandler)customHandler;
 
 /**
  应用外URL的路由配置的初始化
@@ -43,7 +43,7 @@
  */
 + (instancetype)configWithURL:(NSURL *)url
                        params:(NSDictionary<NSString *, id> *)params
-                customHandler:(MARouterHandler)customHandler;
+                customHandler:(LSRRouterHandler)customHandler;
 + (instancetype)configWithURL:(NSURL *)url;
 
 
@@ -57,7 +57,7 @@
  */
 + (instancetype)configWithURLString:(NSString *)urlString
                              params:(NSDictionary<NSString *, id> *)params
-                      customHandler:(MARouterHandler)customHandler;
+                      customHandler:(LSRRouterHandler)customHandler;
 
 + (instancetype)configWithURLString:(NSString *)urlString;
 

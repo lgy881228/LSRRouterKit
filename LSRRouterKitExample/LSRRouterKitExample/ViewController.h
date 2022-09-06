@@ -6,9 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "LSRRouterKit.h"
 @interface ViewController : UIViewController
 
-
+@property (nonatomic, copy) void(^nextVC)(void);/** <#BlockName#> */
 @end
 

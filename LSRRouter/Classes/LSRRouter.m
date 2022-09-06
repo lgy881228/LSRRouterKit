@@ -13,22 +13,22 @@
 #import "LSRRouterNavigator.h"
 #import "LSRRelyingOnQueue.h"
 
-NSString * const kMARouterNonResonseParamKeyTarget = @"targetName";
-NSString * const kMARouterNonResonseParamKeyAction = @"actionName";
-NSString * const kMARouterNonResonseParamKeyParams = @"originParams";
+NSString * const kLSRRouterNonResonseParamKeyTarget = @"targetName";
+NSString * const kLSRRouterNonResonseParamKeyAction = @"actionName";
+NSString * const kLSRRouterNonResonseParamKeyParams = @"originParams";
 
-static NSString * const kMARouterDefaultSelectorName        = @"ma_routerWithParams";
-static NSString * const kMARouterNonResonseClass            = @"MARouterNonResponse";
-static NSString * const kMARouterNonResonseMethod           = @"action:";
-static NSString * const kMARouterVCParamsKeyShouldOpenVC    = @"ma_shouldOpen";
-static NSString * const kMARouterVCParamsValueShouldOpenVC  = @"1";
+static NSString * const kLSRRouterDefaultSelectorName        = @"lsr_routerWithParams";
+static NSString * const kLSRRouterNonResonseClass            = @"LSRRouterNonResponse";
+static NSString * const kLSRRouterNonResonseMethod           = @"action:";
+static NSString * const kLSRRouterVCParamsKeyShouldOpenVC    = @"lsr_shouldOpen";
+static NSString * const kLSRRouterVCParamsValueShouldOpenVC  = @"1";
 
-static NSMutableDictionary<NSString *, id> *ma_cachedTargets = nil;
-static NSMutableDictionary<NSString *, NSString *> *ma_routersMap = nil;
-static NSMutableSet<NSString *> *ma_publicRouterKeys = nil;
-static NSMutableSet<NSString *> *ma_routerSchemes = nil;
-static NSMutableArray<id<LSRIRouterInterceptor>> *ma_router_interceptors = nil;
-static BOOL ma_router_autoCheckNavController = NO;
+static NSMutableDictionary<NSString *, id> *lsr_cachedTargets = nil;
+static NSMutableDictionary<NSString *, NSString *> *lsr_routersMap = nil;
+static NSMutableSet<NSString *> *lsr_publicRouterKeys = nil;
+static NSMutableSet<NSString *> *lsr_routerSchemes = nil;
+static NSMutableArray<id<LSRIRouterInterceptor>> *lsr_router_interceptors = nil;
+static BOOL lsr_router_autoCheckNavController = NO;
 
 @interface LSRRouter ()
 @end
@@ -40,25 +40,25 @@ static BOOL ma_router_autoCheckNavController = NO;
 + (void)cacheTarget:(id)target name:(NSString *)targetName {
     
     if ([target respondsToSelector:@selector(lsr_shouldCachedInRouter)] && [target lsr_shouldCachedInRouter]) {
-        @synchronized (ma_cachedTargets) {
-            if (!ma_cachedTargets) {
-                ma_cachedTargets = [[NSMutableDictionary alloc] init];
+        @synchronized (lsr_cachedTargets) {
+            if (!lsr_cachedTargets) {
+                lsr_cachedTargets = [[NSMutableDictionary alloc] init];
             }
-            ma_cachedTargets[targetName] = target;
+            lsr_cachedTargets[targetName] = target;
         }
     }
 }
 
 + (NSString *)targetForScheme:(NSString *)scheme host:(NSString *)host {
-    if (!ma_routersMap || ma_routersMap.count <= 0) {
+    if (!lsr_routersMap || lsr_routersMap.count <= 0) {
         return nil;
     }
     
     NSString *routerKey = [NSString stringWithFormat:@"%@_%@", scheme, host];
-    NSString *target = ma_routersMap[routerKey];
+    NSString *target = lsr_routersMap[routerKey];
     if (!target) {
         routerKey = [NSString stringWithFormat:@"_%@", host];
-        target = ma_routersMap[routerKey];
+        target = lsr_routersMap[routerKey];
     }
     return target;
 }
@@ -78,7 +78,7 @@ static BOOL ma_router_autoCheckNavController = NO;
 + (NSString *)selectorNameForAction:(NSString *)actionName {
     NSString *selectorName = actionName;
     if (selectorName.length <= 0) {
-        selectorName = kMARouterDefaultSelectorName;
+        selectorName = kLSRRouterDefaultSelectorName;
     }
     return selectorName;
 }
@@ -197,9 +197,9 @@ static BOOL ma_router_autoCheckNavController = NO;
 }
 
 + (BOOL)shouldJumpToVC:(NSDictionary *)params {
-    id shouldOpen = params[kMARouterVCParamsKeyShouldOpenVC];
+    id shouldOpen = params[kLSRRouterVCParamsKeyShouldOpenVC];
     if (shouldOpen) {
-        return [shouldOpen isEqualToString:kMARouterVCParamsValueShouldOpenVC];
+        return [shouldOpen isEqualToString:kLSRRouterVCParamsValueShouldOpenVC];
     }
     return YES;
 }
@@ -208,7 +208,7 @@ static BOOL ma_router_autoCheckNavController = NO;
                action:(NSString *)actionName
                params:(NSDictionary *)params
        routerCallback:(LSRRouterCallback)routerCallback
-        customHandler:(MARouterHandler)customHandler
+        customHandler:(LSRRouterHandler)customHandler
            fromNative:(BOOL)native {
     
     Class targetClass = NSClassFromString(targetName);
@@ -218,7 +218,7 @@ static BOOL ma_router_autoCheckNavController = NO;
     }
     
     //检测依赖项
-    if ([targetClass respondsToSelector:@selector(ma_relyingOnRouterURLWithParams:)]) {
+    if ([targetClass respondsToSelector:@selector(lsr_relyingOnRouterURLWithParams:)]) {
         BOOL dependencyExist = [self checkRelyingOnRouterWithTarget:targetClass
                                                              action:actionName
                                                              params:params
@@ -249,14 +249,14 @@ static BOOL ma_router_autoCheckNavController = NO;
                      action:(NSString *)actionName
                      params:(NSDictionary *)params
              routerCallback:(LSRRouterCallback)routerCallback
-              customHandler:(MARouterHandler)customHandler {
+              customHandler:(LSRRouterHandler)customHandler {
     
     NSString *targetName = NSStringFromClass(targetClass);
     NSString *selectorName = [NSString stringWithFormat:@"%@:", actionName];
     SEL selector = NSSelectorFromString(selectorName);
     
     if ([targetClass instancesRespondToSelector:selector]) {
-        id target = ma_cachedTargets[targetName];
+        id target = lsr_cachedTargets[targetName];
         if (!target) {
             target = [[targetClass alloc] init];
             [self cacheTarget:target name:targetName];
@@ -276,7 +276,7 @@ static BOOL ma_router_autoCheckNavController = NO;
         }
     } else {
         [self noTargetActionResponseWithTarget:targetName action:selectorName originParams:params classExist:YES];
-        [ma_cachedTargets removeObjectForKey:targetName];
+        [lsr_cachedTargets removeObjectForKey:targetName];
     }
 }
 
@@ -284,7 +284,7 @@ static BOOL ma_router_autoCheckNavController = NO;
                          action:(NSString *)actionName
                          params:(NSDictionary *)params
                  routerCallback:(LSRRouterCallback)routerCallback
-                  customHandler:(MARouterHandler)customHandler {
+                  customHandler:(LSRRouterHandler)customHandler {
     
     NSString *selectorName = [NSString stringWithFormat:@"%@:", actionName];
     __block UIViewController *finalController = nil;
@@ -331,7 +331,7 @@ static BOOL ma_router_autoCheckNavController = NO;
                                 action:(NSString *)actionName
                                 params:(NSDictionary *)params
                         routerCallback:(LSRRouterCallback)routerCallback
-                         customHandler:(MARouterHandler)customHandler {
+                         customHandler:(LSRRouterHandler)customHandler {
     
     LSRRouterConfig *routerConfig = [targetClass lsr_relyingOnRouterURLWithParams:params];
     if (!routerConfig) {
@@ -375,12 +375,12 @@ static BOOL ma_router_autoCheckNavController = NO;
 #pragma mark - Registers
 
 + (void)registerScheme:(NSString *)scheme {
-    @synchronized (ma_routerSchemes) {
-        if (!ma_routerSchemes) {
-            ma_routerSchemes = [[NSMutableSet alloc] init];
+    @synchronized (lsr_routerSchemes) {
+        if (!lsr_routerSchemes) {
+            lsr_routerSchemes = [[NSMutableSet alloc] init];
         }
         if (scheme.length > 0) {
-            [ma_routerSchemes addObject:[scheme copy]];
+            [lsr_routerSchemes addObject:[scheme copy]];
         }
     }
 }
@@ -408,27 +408,27 @@ static BOOL ma_router_autoCheckNavController = NO;
     NSAssert(targetClass != nil, @"targetClass不能为nil");
     
     NSString *routerKey = [NSString stringWithFormat:@"%@_%@", scheme, router];
-    @synchronized (ma_routersMap) {
-        if (!ma_routersMap) {
-            ma_routersMap = [[NSMutableDictionary alloc] init];
+    @synchronized (lsr_routersMap) {
+        if (!lsr_routersMap) {
+            lsr_routersMap = [[NSMutableDictionary alloc] init];
         }
         
-        NSString *target = ma_routersMap[routerKey];
+        NSString *target = lsr_routersMap[routerKey];
         if (target) {
             NSAssert(NO, @"不能重复注册router");
         }
-        ma_routersMap[routerKey] = NSStringFromClass(targetClass);
+        lsr_routersMap[routerKey] = NSStringFromClass(targetClass);
     }
     
     if (!isPublic) {
         return;
     }
     
-    @synchronized (ma_publicRouterKeys) {
-        if (!ma_publicRouterKeys) {
-            ma_publicRouterKeys = [[NSMutableSet alloc] init];
+    @synchronized (lsr_publicRouterKeys) {
+        if (!lsr_publicRouterKeys) {
+            lsr_publicRouterKeys = [[NSMutableSet alloc] init];
         }
-        [ma_publicRouterKeys addObject:routerKey];
+        [lsr_publicRouterKeys addObject:routerKey];
     }
 }
 
@@ -493,12 +493,12 @@ static BOOL ma_router_autoCheckNavController = NO;
 
 + (BOOL)publicRouterKeysContainScheme:(NSString *)scheme host:(NSString *)host {
     NSString *routerKey = [NSString stringWithFormat:@"%@_%@", scheme, host];
-    if ([ma_publicRouterKeys containsObject:routerKey]) {
+    if ([lsr_publicRouterKeys containsObject:routerKey]) {
         return YES;
     }
     
     routerKey = [NSString stringWithFormat:@"_%@", host];
-    return [ma_publicRouterKeys containsObject:routerKey];
+    return [lsr_publicRouterKeys containsObject:routerKey];
 }
 
 #pragma mark - Open URL
@@ -506,7 +506,7 @@ static BOOL ma_router_autoCheckNavController = NO;
 + (BOOL)openURL:(NSURL *)url
          params:(NSDictionary *)params
  routerCallback:(LSRRouterCallback)routerCallback
-  customHandler:(MARouterHandler)customHandler
+  customHandler:(LSRRouterHandler)customHandler
          public:(BOOL)isPublic {
     //1. 优先处理拦截器逻辑
     if ([self interceptURL:url shouldProcess:YES]) {
@@ -540,7 +540,7 @@ static BOOL ma_router_autoCheckNavController = NO;
 + (BOOL)openURL:(NSURL *)url
          params:(NSDictionary *)params
  routerCallback:(LSRRouterCallback)routerCallback
-  customHandler:(MARouterHandler)customHandler {
+  customHandler:(LSRRouterHandler)customHandler {
     return [self openURL:url params:params routerCallback:routerCallback customHandler:customHandler public:NO];
 }
 
@@ -559,7 +559,7 @@ static BOOL ma_router_autoCheckNavController = NO;
 + (BOOL)openPublicURL:(NSURL *)publicURL
                params:(NSDictionary *)params
        routerCallback:(LSRRouterCallback)routerCallback
-        customHandler:(MARouterHandler)customHandler {
+        customHandler:(LSRRouterHandler)customHandler {
     return [self openURL:publicURL params:params routerCallback:routerCallback customHandler:customHandler public:YES];
 }
 
@@ -581,7 +581,7 @@ static BOOL ma_router_autoCheckNavController = NO;
                action:(NSString *)actionName
                params:(NSDictionary *)params
        routerCallback:(LSRRouterCallback)routerCallback
-        customHandler:(MARouterHandler)customHandler {
+        customHandler:(LSRRouterHandler)customHandler {
     NSString *selectorName = [self selectorNameForAction:actionName];
     [self performTarget:targetName
                  action:selectorName
@@ -593,7 +593,7 @@ static BOOL ma_router_autoCheckNavController = NO;
 
 + (void)removeObjectFromRouterCache:(NSString *)targetName {
     if (targetName) {
-        [ma_cachedTargets removeObjectForKey:targetName];
+        [lsr_cachedTargets removeObjectForKey:targetName];
     }
 }
 
@@ -604,19 +604,19 @@ static BOOL ma_router_autoCheckNavController = NO;
         return;
     }
     
-    if (!ma_router_interceptors) {
-        ma_router_interceptors = [[NSMutableArray alloc] init];
+    if (!lsr_router_interceptors) {
+        lsr_router_interceptors = [[NSMutableArray alloc] init];
     }
     
-    [ma_router_interceptors addObject:interceptor];
+    [lsr_router_interceptors addObject:interceptor];
 }
 
 + (BOOL)interceptURL:(NSURL *)url shouldProcess:(BOOL)shouldProcess {
-    if (!ma_router_interceptors || !url) {
+    if (!lsr_router_interceptors || !url) {
         return NO;
     }
     
-    for (id<LSRIRouterInterceptor> interceptor in ma_router_interceptors) {
+    for (id<LSRIRouterInterceptor> interceptor in lsr_router_interceptors) {
         if ([interceptor canHandleURL:url]) {
             if (shouldProcess) {
                 [interceptor process:url];
@@ -638,26 +638,26 @@ static BOOL ma_router_autoCheckNavController = NO;
                               classExist:(BOOL)exist {
     @try {
         if (exist) {
-            NSString *errorMsg = [NSString stringWithFormat:@"MARouter:%@未能正常响应%@.", targetName, actionName];
+            NSString *errorMsg = [NSString stringWithFormat:@"LSRRouter:%@未能正常响应%@.", targetName, actionName];
             NSLog(@"%@", errorMsg);
         } else {
             NSString *errorMsg = [NSString stringWithFormat:@"MARouter:项目中未发现%@.", targetName];
             NSLog(@"%@", errorMsg);
         }
         
-        id target = [[NSClassFromString(kMARouterNonResonseClass) alloc] init];
+        id target = [[NSClassFromString(kLSRRouterNonResonseClass) alloc] init];
         if (!target) {
             return;
         }
         
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-        params[kMARouterNonResonseParamKeyTarget] = targetName;
-        params[kMARouterNonResonseParamKeyAction] = actionName;
+        params[kLSRRouterNonResonseParamKeyTarget] = targetName;
+        params[kLSRRouterNonResonseParamKeyAction] = actionName;
         if (originParams) {
-            params[kMARouterNonResonseParamKeyParams] = originParams;
+            params[kLSRRouterNonResonseParamKeyParams] = originParams;
         }
         
-        SEL action = NSSelectorFromString(kMARouterNonResonseMethod);
+        SEL action = NSSelectorFromString(kLSRRouterNonResonseMethod);
         [self safePerformAction:action target:target params:params];
     } @catch (NSException *exception) {
     }
@@ -667,7 +667,7 @@ static BOOL ma_router_autoCheckNavController = NO;
 
 @end
 
-@implementation LSRRouter (MAStringURL)
+@implementation LSRRouter (LSRStringURL)
 
 #pragma mark - Private Methods
 
@@ -702,7 +702,7 @@ static BOOL ma_router_autoCheckNavController = NO;
 + (BOOL)openURLString:(NSString *)urlString
                params:(NSDictionary *)params
        routerCallback:(LSRRouterCallback)routerCallback
-        customHandler:(MARouterHandler)customHandler {
+        customHandler:(LSRRouterHandler)customHandler {
     NSURL *targetURL = [NSURL URLWithString:[self chineseUrlEncode:urlString]];
     return [self openURL:targetURL params:params routerCallback:routerCallback customHandler:customHandler];
 }
@@ -724,7 +724,7 @@ static BOOL ma_router_autoCheckNavController = NO;
 + (BOOL)openPublicURLString:(NSString *)urlString
                      params:(NSDictionary *)params
              routerCallback:(LSRRouterCallback)routerCallback
-              customHandler:(MARouterHandler)customHandler {
+              customHandler:(LSRRouterHandler)customHandler {
     NSURL *targetURL = [NSURL URLWithString:[self chineseUrlEncode:urlString]];
     return [self openPublicURL:targetURL params:params routerCallback:routerCallback customHandler:customHandler];
 }
@@ -744,11 +744,11 @@ static BOOL ma_router_autoCheckNavController = NO;
 }
 
 + (BOOL)navControllerMonitorEnabled {
-    return ma_router_autoCheckNavController;
+    return lsr_router_autoCheckNavController;
 }
 
 + (void)enableNavControllerMonitor:(BOOL)enabled {
-    ma_router_autoCheckNavController = enabled;
+    lsr_router_autoCheckNavController = enabled;
 }
 
 @end

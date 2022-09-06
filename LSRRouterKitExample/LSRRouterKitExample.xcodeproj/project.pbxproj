@@ -9,12 +9,15 @@
 /* Begin PBXBuildFile section */
 		739A703A72E920FDCC91E0F2 /* Pods_LSRRouterKitExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29779549AC6A00291B6A5A45 /* Pods_LSRRouterKitExample.framework */; };
 		AB848BD128C0B76900810246 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB848BD028C0B76900810246 /* AppDelegate.m */; };
-		AB848BD428C0B76900810246 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB848BD328C0B76900810246 /* SceneDelegate.m */; };
 		AB848BD728C0B76900810246 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB848BD628C0B76900810246 /* ViewController.m */; };
 		AB848BDA28C0B76900810246 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB848BD828C0B76900810246 /* Main.storyboard */; };
 		AB848BDC28C0B76A00810246 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB848BDB28C0B76A00810246 /* Assets.xcassets */; };
 		AB848BDF28C0B76A00810246 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB848BDD28C0B76A00810246 /* LaunchScreen.storyboard */; };
 		AB848BE228C0B76A00810246 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AB848BE128C0B76A00810246 /* main.m */; };
+		AB89BF9C28C7380600C95A9B /* LSRViewController0.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89BF9B28C7380600C95A9B /* LSRViewController0.m */; };
+		AB89BF9F28C7380E00C95A9B /* LSRViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89BF9E28C7380E00C95A9B /* LSRViewController1.m */; };
+		AB89BFA228C7381B00C95A9B /* LSRViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89BFA128C7381B00C95A9B /* LSRViewController2.m */; };
+		AB89BFA528C7382500C95A9B /* LSRViewController3.m in Sources */ = {isa = PBXBuildFile; fileRef = AB89BFA428C7382500C95A9B /* LSRViewController3.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +27,6 @@
 		AB848BCC28C0B76900810246 /* LSRRouterKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LSRRouterKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB848BCF28C0B76900810246 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AB848BD028C0B76900810246 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AB848BD228C0B76900810246 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		AB848BD328C0B76900810246 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		AB848BD528C0B76900810246 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		AB848BD628C0B76900810246 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		AB848BD928C0B76900810246 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -33,6 +34,14 @@
 		AB848BDE28C0B76A00810246 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB848BE028C0B76A00810246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB848BE128C0B76A00810246 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AB89BF9A28C7380600C95A9B /* LSRViewController0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSRViewController0.h; sourceTree = "<group>"; };
+		AB89BF9B28C7380600C95A9B /* LSRViewController0.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSRViewController0.m; sourceTree = "<group>"; };
+		AB89BF9D28C7380E00C95A9B /* LSRViewController1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSRViewController1.h; sourceTree = "<group>"; };
+		AB89BF9E28C7380E00C95A9B /* LSRViewController1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSRViewController1.m; sourceTree = "<group>"; };
+		AB89BFA028C7381B00C95A9B /* LSRViewController2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSRViewController2.h; sourceTree = "<group>"; };
+		AB89BFA128C7381B00C95A9B /* LSRViewController2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSRViewController2.m; sourceTree = "<group>"; };
+		AB89BFA328C7382500C95A9B /* LSRViewController3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSRViewController3.h; sourceTree = "<group>"; };
+		AB89BFA428C7382500C95A9B /* LSRViewController3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSRViewController3.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +62,6 @@
 				25769A2A310F28858E8570CB /* Pods-LSRRouterKitExample.debug.xcconfig */,
 				1235BAF48E38B5172B1093CF /* Pods-LSRRouterKitExample.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -88,10 +96,16 @@
 			children = (
 				AB848BCF28C0B76900810246 /* AppDelegate.h */,
 				AB848BD028C0B76900810246 /* AppDelegate.m */,
-				AB848BD228C0B76900810246 /* SceneDelegate.h */,
-				AB848BD328C0B76900810246 /* SceneDelegate.m */,
 				AB848BD528C0B76900810246 /* ViewController.h */,
 				AB848BD628C0B76900810246 /* ViewController.m */,
+				AB89BF9A28C7380600C95A9B /* LSRViewController0.h */,
+				AB89BF9B28C7380600C95A9B /* LSRViewController0.m */,
+				AB89BF9D28C7380E00C95A9B /* LSRViewController1.h */,
+				AB89BF9E28C7380E00C95A9B /* LSRViewController1.m */,
+				AB89BFA028C7381B00C95A9B /* LSRViewController2.h */,
+				AB89BFA128C7381B00C95A9B /* LSRViewController2.m */,
+				AB89BFA328C7382500C95A9B /* LSRViewController3.h */,
+				AB89BFA428C7382500C95A9B /* LSRViewController3.m */,
 				AB848BD828C0B76900810246 /* Main.storyboard */,
 				AB848BDB28C0B76A00810246 /* Assets.xcassets */,
 				AB848BDD28C0B76A00810246 /* LaunchScreen.storyboard */,
@@ -218,7 +232,10 @@
 				AB848BD728C0B76900810246 /* ViewController.m in Sources */,
 				AB848BD128C0B76900810246 /* AppDelegate.m in Sources */,
 				AB848BE228C0B76A00810246 /* main.m in Sources */,
-				AB848BD428C0B76900810246 /* SceneDelegate.m in Sources */,
+				AB89BF9F28C7380E00C95A9B /* LSRViewController1.m in Sources */,
+				AB89BFA528C7382500C95A9B /* LSRViewController3.m in Sources */,
+				AB89BF9C28C7380600C95A9B /* LSRViewController0.m in Sources */,
+				AB89BFA228C7381B00C95A9B /* LSRViewController2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,7 +384,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -394,7 +410,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

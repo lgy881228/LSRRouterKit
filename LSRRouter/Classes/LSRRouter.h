@@ -11,9 +11,9 @@
 #import "NSObject+LSRRouter.h"
 #import "LSRIRouterInterceptor.h"
 
-FOUNDATION_EXTERN NSString * const kMARouterNonResonseParamKeyTarget;
-FOUNDATION_EXTERN NSString * const kMARouterNonResonseParamKeyAction;
-FOUNDATION_EXTERN NSString * const kMARouterNonResonseParamKeyParams;
+FOUNDATION_EXTERN NSString * const kLSRRouterNonResonseParamKeyTarget;
+FOUNDATION_EXTERN NSString * const kLSRRouterNonResonseParamKeyAction;
+FOUNDATION_EXTERN NSString * const kLSRRouterNonResonseParamKeyParams;
 
 /**
  Router处理完成后的回调
@@ -26,11 +26,11 @@ FOUNDATION_EXTERN NSString * const kMARouterNonResonseParamKeyParams;
             --> 如果路由的target是NSObject子类，且actionName是类方法，那么target就是【类对象】
             --> 如果路由的target是NSObject子类，且actionName是实例方法，那么target就是【实例对象】
  */
-typedef void(^MARouterHandler)(NSString *targetIdentifier,
+typedef void(^LSRRouterHandler)(NSString *targetIdentifier,
                                id returnValue,
                                id target);
 
-@class LSRRouterConfig, MAIRouterInterceptor;
+@class LSRRouterConfig, LSRIRouterInterceptor;
 @interface LSRRouter : NSObject
 
 /**
@@ -145,7 +145,7 @@ typedef void(^MARouterHandler)(NSString *targetIdentifier,
             -> 直接初始化
             -> 如果path存在
                 -> 如果实现了path对应的实例方法@selector(path:), 则调用。
-            -> 如果path不存在，则默认path为ma_routerWithParams
+            -> 如果path不存在，则默认path为lsr_routerWithParams
                 -> 如果实现了path对应的实例方法@selector(path:), 则调用。
             -> 判断是Push还是Present方式显示VC
             -> 判断是否单例
@@ -167,7 +167,7 @@ typedef void(^MARouterHandler)(NSString *targetIdentifier,
 + (BOOL)openURL:(NSURL *)url
          params:(NSDictionary *)params
  routerCallback:(LSRRouterCallback)routerCallback
-  customHandler:(MARouterHandler)customHandler;
+  customHandler:(LSRRouterHandler)customHandler;
 
 + (BOOL)openURL:(NSURL *)url params:(NSDictionary *)params routerCallback:(LSRRouterCallback)routerCallback;
 + (BOOL)openURL:(NSURL *)url routerCallback:(LSRRouterCallback)routerCallback;
@@ -188,7 +188,7 @@ typedef void(^MARouterHandler)(NSString *targetIdentifier,
 + (BOOL)openPublicURL:(NSURL *)publicURL
                params:(NSDictionary *)params
        routerCallback:(LSRRouterCallback)routerCallback
-        customHandler:(MARouterHandler)customHandler;
+        customHandler:(LSRRouterHandler)customHandler;
 
 + (BOOL)openPublicURL:(NSURL *)publicURL params:(NSDictionary *)params routerCallback:(LSRRouterCallback)routerCallback;
 + (BOOL)openPublicURL:(NSURL *)publicURL routerCallback:(LSRRouterCallback)routerCallback;
@@ -203,7 +203,7 @@ typedef void(^MARouterHandler)(NSString *targetIdentifier,
          -> 直接初始化
          -> 如果actionName存在
             -> 如果实现了actionName对应的实例方法@selector(actionName:), 则调用。
-         -> 如果actionName不存在，则默认actionName为ma_routerWithParams
+         -> 如果actionName不存在，则默认actionName为lsr_routerWithParams
             -> 如果实现了path对应的实例方法@selector(actionName:), 则调用。
          -> 判断是Push还是Present方式显示VC
          -> 判断是否单例
@@ -215,11 +215,11 @@ typedef void(^MARouterHandler)(NSString *targetIdentifier,
          -> 判断是否需要缓存到Router中
             -> 如果需要缓存，则优先从缓存中来获取该类的对象实例
  -> 如果没有找到对应的类和实现方法的实现。
-    1. 自动实例化MARouterNonResponse类，并且调用该类的action:方法
+    1. 自动实例化LSRRouterNonResponse类，并且调用该类的action:方法
     2. action方法的参数为NSDictionary类型，参数值说明。
-        kMARouterNonResonseParamKeyTarget -> 原目标类类型
-        kMARouterNonResonseParamKeyAction -> 原调用的方法名
-        kMARouterNonResonseParamKeyParams -> 原参数列表
+        kLSRRouterNonResonseParamKeyTarget -> 原目标类类型
+        kLSRRouterNonResonseParamKeyAction -> 原调用的方法名
+        kLSRRouterNonResonseParamKeyParams -> 原参数列表
  
 
  @param targetName 目标类
@@ -234,7 +234,7 @@ typedef void(^MARouterHandler)(NSString *targetIdentifier,
                action:(NSString *)actionName
                params:(NSDictionary *)params
        routerCallback:(LSRRouterCallback)routerCallback
-        customHandler:(MARouterHandler)customHandler;
+        customHandler:(LSRRouterHandler)customHandler;
 
 /**
  从缓存中移除Class对应的实例，释放内存。
@@ -253,7 +253,7 @@ typedef void(^MARouterHandler)(NSString *targetIdentifier,
 
 @end
 
-@interface LSRRouter (MAStringURL)
+@interface LSRRouter (LSRStringURL)
 
 
 /**
@@ -280,7 +280,7 @@ typedef void(^MARouterHandler)(NSString *targetIdentifier,
 + (BOOL)openURLString:(NSString *)urlString
                params:(NSDictionary *)params
        routerCallback:(LSRRouterCallback)routerCallback
-        customHandler:(MARouterHandler)customHandler;
+        customHandler:(LSRRouterHandler)customHandler;
 
 + (BOOL)openURLString:(NSString *)urlString
                params:(NSDictionary *)params
@@ -302,7 +302,7 @@ typedef void(^MARouterHandler)(NSString *targetIdentifier,
 + (BOOL)openPublicURLString:(NSString *)urlString
                      params:(NSDictionary *)params
              routerCallback:(LSRRouterCallback)routerCallback
-              customHandler:(MARouterHandler)customHandler;
+              customHandler:(LSRRouterHandler)customHandler;
 
 + (BOOL)openPublicURLString:(NSString *)urlString
                      params:(NSDictionary *)params
@@ -316,7 +316,7 @@ typedef void(^MARouterHandler)(NSString *targetIdentifier,
 
 /// 设置是否自动检测UINavigationController
 /// 如果为YES，则自动检测。
-/// 如果为NO，直接使用 [MARouterNavigator currentNavController]。
+/// 如果为NO，直接使用 [LSRRouterNavigator currentNavController]。
 /// @param enabled 是否自动检测UINavigationController，默认不检测
 + (void)enableNavControllerMonitor:(BOOL)enabled;
 

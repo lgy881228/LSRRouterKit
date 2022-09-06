@@ -1,8 +1,14 @@
 PODS:
   - LSRRouterKit (1.3)
+  - Masonry (1.1.0)
 
 DEPENDENCIES:
   - LSRRouterKit (from `../`)
+  - Masonry
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Masonry
 
 EXTERNAL SOURCES:
   LSRRouterKit:
@@ -10,7 +16,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   LSRRouterKit: 07b82441c6c8478c68d4dd0306d6e340456b2de5
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
 
-PODFILE CHECKSUM: 5f1acd886e15b176950b6dcf7b1933ea7ea658b4
+PODFILE CHECKSUM: 1937bb3b8022bbc64f9eff6a2c4dbf40d24bc33f
 
 COCOAPODS: 1.11.3
