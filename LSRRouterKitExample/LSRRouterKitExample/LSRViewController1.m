@@ -15,7 +15,7 @@
 @implementation LSRViewController1
 LSRRouterRegisterOnLoad(@"lsr", @"LSRViewController1");
 
-- (id)ma_routerWithParams:(NSDictionary *)params {
+- (id)lsr_routerWithParams:(NSDictionary *)params {
     
     NSLog(@"%@====%@",self,params);
     return nil;

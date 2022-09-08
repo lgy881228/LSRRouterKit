@@ -14,7 +14,7 @@
 @implementation LSRViewController3
 LSRRouterRegisterOnLoad(@"lsr", @"LSRViewController3");
 
-- (id)ma_routerWithParams:(NSDictionary *)params {
+- (id)lsr_routerWithParams:(NSDictionary *)params {
     
     NSLog(@"%@====%@",self,params);
     return nil;
@@ -26,7 +26,7 @@ LSRRouterRegisterOnLoad(@"lsr", @"LSRViewController3");
 
     self.nextVC = ^{
         
-        [LSRRouter openURLString:@"lsr://LSRViewController0" params:@{@"key":@"from3"} routerCallback:^(id  _Nullable callbackParams) {
+        [LSRRouter openURLString:@"lsr://LSRViewController0/currentViewContrllerWithParam" params:@{@"key":@"from3"} routerCallback:^(id  _Nullable callbackParams) {
             
         }];
       

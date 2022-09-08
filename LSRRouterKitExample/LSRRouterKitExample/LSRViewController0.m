@@ -15,11 +15,18 @@
 LSRRouterRegisterOnLoad(@"lsr", @"LSRViewController0");
 
 /// 接收参数 在viewDidLoad之前调用
-- (id)ma_routerWithParams:(NSDictionary *)params {
+- (id)lsr_routerWithParams:(NSDictionary *)params {
     
     NSLog(@"%@====%@",self,params);
     return nil;
     
+}
+
+
+/// 自定义接收参数 在viewDidLoad之前调用 见 LSRViewController3 调用
+- (void)currentViewContrllerWithParam:(NSDictionary *)param
+{
+    NSLog(@"%@",param);
 }
 
 - (void)viewDidLoad {
